@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kindle+（Kindle Unlimited）で読める漫画一覧</title>
+<style>
+:root {
+  --bg: #0b0e14;
+  --surface: #151a24;
+  --border: #2a3242;
+  --text: #f2f4f8;
+  --sub: #c6ccd8;
+  --muted: #8b93a5;
+  --accent: #ffb84d;
+  --owned: #2dd4bf;
+  --seq: #a78bfa;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  color: var(--text);
+  background:
+    radial-gradient(900px 420px at 50% -120px, rgba(255, 184, 77, 0.13), rgba(255, 184, 77, 0) 70%),
+    linear-gradient(180deg, #10141d 0, var(--bg) 340px);
+  background-color: var(--bg);
+  font-family: "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Noto Sans CJK JP", "Yu Gothic UI", "Yu Gothic", sans-serif;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+.wrap { max-width: 960px; margin: 0 auto; padding: 0 16px 56px; }
+header { padding: 30px 0 8px; }
+.overline { color: var(--accent); font-size: 0.75rem; font-weight: 700; letter-spacing: 0.35em; margin: 0 0 10px; }
+h1 { margin: 0; font-size: clamp(1.7rem, 6vw, 2.6rem); font-weight: 900; line-height: 1.2; }
+h1 .accent { color: var(--accent); }
+.tagline { margin: 12px 0 0; color: var(--sub); font-size: 0.92rem; }
+.rule { height: 4px; margin-top: 22px; background: linear-gradient(90deg, var(--accent), rgba(255, 184, 77, 0.25) 55%, rgba(255, 184, 77, 0)); }
+.headmeta { display: flex; flex-wrap: wrap; gap: 8px 18px; align-items: center; margin-top: 14px; color: var(--muted); font-size: 0.85rem; }
+.headmeta .count { color: var(--text); font-weight: 700; }
+.notice {
+  margin-top: 18px; padding: 12px 14px;
+  border: 1px solid var(--border); border-radius: 10px;
+  background: var(--surface); color: var(--sub); font-size: 0.83rem;
+}
+.notice strong { color: var(--text); }
+h2 { margin: 34px 0 4px; font-size: 1.25rem; font-weight: 800; }
+h2 .sub { display: block; font-size: 0.8rem; font-weight: 400; color: var(--muted); margin-top: 2px; }
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 14px;
+  margin-top: 16px;
+}
+@media (max-width: 480px) {
+  .grid { grid-template-columns: repeat(auto-fill, minmax(108px, 1fr)); gap: 10px; }
+}
+.card {
+  border: 1px solid var(--border); border-radius: 12px;
+  background: var(--surface); overflow: hidden;
+  display: flex; flex-direction: column;
+}
+.card img {
+  display: block; width: 100%; aspect-ratio: 5 / 7;
+  object-fit: cover; background: #0e1118;
+}
+.card .body { padding: 9px 10px 11px; display: flex; flex-direction: column; gap: 4px; }
+.card .title { font-size: 0.88rem; font-weight: 700; line-height: 1.4; }
+.card .author { font-size: 0.75rem; color: var(--muted); }
+.card .vols { font-size: 0.75rem; color: var(--sub); }
+.badges { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 2px; }
+.badge {
+  display: inline-block; padding: 1px 8px; border-radius: 999px;
+  font-size: 0.68rem; font-weight: 700; letter-spacing: 0.05em;
+  border: 1px solid; white-space: nowrap;
+}
+.badge-ku { color: var(--accent); border-color: var(--accent); background: rgba(255, 184, 77, 0.12); }
+.badge-owned { color: var(--owned); border-color: var(--owned); background: rgba(45, 212, 191, 0.12); }
+.badge-seq { color: var(--seq); border-color: var(--seq); background: rgba(167, 139, 250, 0.12); }
+.badge-unconf { color: var(--muted); border-color: var(--muted); background: rgba(139, 147, 165, 0.10); }
+.card .note { font-size: 0.72rem; color: var(--muted); line-height: 1.5; }
+footer { margin-top: 44px; padding-top: 16px; border-top: 1px solid var(--border); color: var(--muted); font-size: 0.78rem; }
+footer p { margin: 4px 0; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <p class="overline">KINDLE UNLIMITED MANGA</p>
+  <h1>Kindle+で読める<span class="accent">漫画</span>一覧</h1>
+  <p class="tagline">Kindle Unlimited（Kindle+）の読み放題対象になっている漫画を、表紙つきで並べたページです。</p>
+  <div class="rule"></div>
+  <div class="headmeta">
+    <span>掲載 <span class="count">27シリーズ</span></span>
+    <span>確認日：2026年11月23日</span>
+  </div>
+  <div class="notice">
+    <strong>確認についての注意：</strong>
+    対象作品は、2026年11月時点の読み放題紹介記事（だいだい書店の対象20選、rich-bookのランキング、すまほん／FlameLittのセール情報）で「読み放題対象」とされていた物を確認して載せています。
+    Amazon.co.jpの商品ページはMuse側のアクセスが拒否され（403）、直接の最終確認はできていません。最終確認は本人のChrome経由でお願いします。
+    読み放題の対象は入れ替わることがあります。また、多くの作品は<strong>1巻のみ対象で続きは対象外</strong>のケースがあります（巻ごとの対象範囲は未確認）。読む前にKindle側の表示で対象かどうかを確認してください。
+    表紙画像はBOOK☆WALKERの検索結果から得た実際の画像URLを使っています。
+  </div>
+</header>
+
+<h2>所持作品とその続編<span class="sub">蔵書リスト（2026-11-22確認）と照合済み</span></h2>
+<div class="grid">
+
+  <div class="card">
+    <img src="https://rimg.bookwalker.jp/3634936/eUnObgIVNjRTJtVUNQrbaQ__.jpg" alt="AIの遺電子の表紙" loading="lazy">
+    <div class="body">
+      <div class="title">AIの遺電子</div>
+      <div class="author">山田胡瓜</div>
+      <div class="vols">全8巻</div>
+      <div class="badges"><span class="badge badge-ku">読み放題対象</span><span class="badge badge-owned">所持済み（全8巻）</span></div>
+      <div class="note">1巻が読み放題対象（2026年11月時点）。全8巻が1冊99円セール中（12月2日まで）という情報もあり。</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <img src="https://rimg.bookwalker.jp/5734936/eUnObgIVNjRTJtVUNQrbaQ__.jpg" alt="AIの遺電子 RED QUEENの表紙" loading="lazy">
+    <div class="body">
+      <div class="title">AIの遺電子 RED QUEEN</div>
+      <div class="author">AIの遺電子の続編</div>
+      <div class="vols">5冊</div>
+      <div class="badges"><span class="badge badge-seq">続編</span><span class="badge badge-unconf">読み放題は未確認</span></div>
+      <div class="note">99円セールの対象外だった事は確認済み。読み放題対象かどうかは未確認です。</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <img src="https://rimg.bookwalker.jp/1553524/eUnObgIVNjRTJtVUNQrbaQ__.jpg" alt="AIの遺電子 Blue Ageの表紙" loading="lazy">
+    <div class="body">
+      <div class="title">AIの遺電子 Blue Age</div>
+      <div class="author">AIの遺電子の続編</div>
+      <div class="vols">9冊</div>
+      <div class="badges"><span class="badge badge-seq">続編</span><span class="badge badge-unconf">読み放題は未確認</span></div>
+      <div class="note">99円セールの対象外だった事は確認済み。読み放題対象かどうかは未確認です。</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <img src="https://rimg.bookwalker.jp/6a223032a0b9a7b68d41d242d9be08b/eUnObgIVNjRTJtVUNQrbaQ__.jpg" alt="ダンジョン飯の表紙" loading="lazy">
+    <div class="body">
+      <div class="title">ダンジョン飯</div>
+      <div class="author">九井諒子</div>
+      <div class="vols">全14巻</div>
+      <div class="badges"><span class="badge badge-ku">読み放題対象</span><span class="badge badge-owned">所持済み（1〜10巻）</span></div>
+      <div class="note">読み放題対象（2026年11月時点）。対象の巻の範囲は未確認。</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <img src="https://rimg.bookwalker.jp/742803/eUnObgIVNjRTJtVUNQrbaQ__.jpg" alt="戦国妖狐の表紙" loading="lazy">
+    <div class="body">
+      <div class="title">戦国妖狐</div>
+      <div class="author">水上悟志</div>
+      <div class="vols">全17巻</div>
+      <div class="badges"><span class="badge badge-ku">読み放題対象</span><span class="badge badge-owned">所持済み（1巻のみ）</span></div>
+      <div class="note">冒頭巻が読み放題対象（2026年11月時点）。続きを読むのに使えます。</div>
+    </div>
+  </div>
+
+</div>
+
+<h2>読み放題の定番・人気作<span class="sub">2026年11月時点の対象紹介で挙がっていた作品</span></h2>
+<div class="grid">
+
+  <div class="card">
+    <img src="https://rimg.bookwalker.jp/986152bff469979d5546698ec63ffb0/eUnObgIVNjRTJtVUNQrbaQ__.jpg" alt="本なら売るほどの表紙" loading="lazy">
+    <div class="body">
+      <div class="title">本なら売るほど</div>
+      <div class="author">児島青</div>
+      <div class="vols">3冊（連載中）</div>
+      <div class="badges"><span class="badge badge-ku">読み放題対象</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <img src="https://rimg.bookwalker.jp/5900517/eUnObgIVNjRTJtVUNQrbaQ__.jpg" alt="路傍のフジイの表紙" loading="lazy">
+    <div class="body">
+      <div class="title">路傍のフジイ</div>
+      <div class="author">鍋倉夫</div>
+      <div class="vols">全7巻</div>
+      <div class="badges"><span class="badge badge-ku">読み放題対象</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <img src="https://rimg.bookwalker.jp/1152723/eUnObgIVNjRTJtVUNQrbaQ__.jpg" alt="ガンニバルの表紙" loading="lazy">
+    <div class="body">
+      <div class="title">ガンニバル</div>
+      <div class="author">二宮正明</div>
+      <div class="vols">全13巻</div>
+      <div class="badges"><span class="badge badge-ku">読み放題対象</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <img src="https://rimg.bookwalker.jp/3671303/eUnObgIVNjRTJtVUNQrbaQ__.jpg" alt="ここは今から倫理です。の表紙" loading="lazy">
+    <div class="body">
+      <div class="title">ここは今から倫理です。</div>
+      <div class="author">雨瀬シオリ</div>
+      <div class="vols">全10巻</div>
+      <div class="badges"><span class="badge badge-ku">読み放題対象</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <img src="https://rimg.bookwalker.jp/3399633/eUnObgIVNjRTJtVUNQrbaQ__.jpg" alt="異世界おじさんの表紙" loading="lazy">
+    <div class="body">
+      <div class="title">異世界おじさん</div>
+      <div class="author">殆ど死んでいる</div>
+      <div class="vols">16冊</div>
+      <div class="badges"><span class="badge badge-ku">読み放題対象</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <img src="https://rimg.bookwalker.jp/8646713/eUnObgIVNjRTJtVUNQrbaQ__.jpg" alt="その着せ替え人形は恋をするの表紙" loading="lazy">
+    <div class="body">
+      <div class="title">その着せ替え人形は恋をする</div>
+      <div class="author">福田晋一</div>
+      <div class="vols">16冊</div>
+      <div class="badges"><span class="badge badge-ku">読み放題対象</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <img src="https://rimg.bookwalker.jp/3843793/eUnObgIVNjRTJtVUNQrbaQ__.jpg" alt="悪役令嬢レベル99の表紙" loading="lazy">
+    <div class="body">
+      <div class="title">悪役令嬢レベル99</div>
+      <div class="author">のこみ（原作）・七夕さとり（漫画）</div>
+      <div class="vols">6冊</div>
+      <div class="badges"><span class="badge badge-ku">読み放題対象</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <img src="https://rimg.bookwalker.jp/980313/eUnObgIVNjRTJtVUNQrbaQ__.jpg" alt="アカギの表紙" loading="lazy">
+    <div class="body">
+      <div class="title">アカギ</div>
+      <div class="author">福本伸行</div>
+      <div class="vols">全36巻</div>
+      <div class="badges"><span class="badge badge-ku">読み放題対象</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <img src="https://rimg.bookwalker.jp/600413/eUnObgIVNjRTJtVUNQrbaQ__.jpg" alt="最強伝説 黒沢の表紙" loading="lazy">
+    <div class="body">
+      <div class="title">最強伝説 黒沢</div>
+      <div class="author">福本伸行</div>
+      <div class="vols">全11巻</div>
+      <div class="badges"><span class="badge badge-ku">読み放題対象</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <img src="https://rimg.bookwalker.jp/9680375/eUnObgIVNjRTJtVUNQrbaQ__.jpg" alt="ナニワ金融道の表紙" loading="lazy">
+    <div class="body">
+      <div class="title">ナニワ金融道</div>
+      <div class="author">青木雄二</div>
+      <div class="vols">全19巻（講談社版）</div>
+      <div class="badges"><span class="badge badge-ku">読み放題対象</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <img src="https://rimg.bookwalker.jp/5032326/eUnObgIVNjRTJtVUNQrbaQ__.jpg" alt="マンガでわかる バフェットの投資術の表紙" loading="lazy">
+    <div class="body">
+      <div class="title">マンガでわかる バフェットの投資術</div>
+      <div class="author">ループスプロダクション</div>
+      <div class="vols">全1巻</div>
+      <div class="badges"><span class="badge badge-ku">読み放題対象</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <img src="https://rimg.bookwalker.jp/3973643/eUnObgIVNjRTJtVUNQrbaQ__.jpg" alt="子連れ狼の表紙" loading="lazy">
+    <div class="body">
+      <div class="title">子連れ狼</div>
+      <div class="author">小池一夫・小島剛夕</div>
+      <div class="vols">全28巻</div>
+      <div class="badges"><span class="badge badge-ku">読み放題対象</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <img src="https://rimg.bookwalker.jp/9858176/eUnObgIVNjRTJtVUNQrbaQ__.jpg" alt="あした天気になあれの表紙" loading="lazy">
+    <div class="body">
+      <div class="title">あした天気になあれ</div>
+      <div class="author">ちばてつや</div>
+      <div class="vols">58冊（コルク版）</div>
+      <div class="badges"><span class="badge badge-ku">読み放題対象</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <img src="https://rimg.bookwalker.jp/804261/eUnObgIVNjRTJtVUNQrbaQ__.jpg" alt="将太の寿司の表紙" loading="lazy">
+    <div class="body">
+      <div class="title">将太の寿司</div>
+      <div class="author">寺沢大介</div>
+      <div class="vols">全27巻</div>
+      <div class="badges"><span class="badge badge-ku">読み放題対象</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <img src="https://rimg.bookwalker.jp/6141282/eUnObgIVNjRTJtVUNQrbaQ__.jpg" alt="もっこり半兵衛の表紙" loading="lazy">
+    <div class="body">
+      <div class="title">もっこり半兵衛</div>
+      <div class="author">徳弘正也</div>
+      <div class="vols">全13巻</div>
+      <div class="badges"><span class="badge badge-ku">読み放題対象</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <img src="https://rimg.bookwalker.jp/2366322/eUnObgIVNjRTJtVUNQrbaQ__.jpg" alt="シュート！ 新たなる伝説の表紙" loading="lazy">
+    <div class="body">
+      <div class="title">シュート！ 新たなる伝説</div>
+      <div class="author">大島司</div>
+      <div class="vols">全16巻</div>
+      <div class="badges"><span class="badge badge-ku">読み放題対象</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <img src="https://rimg.bookwalker.jp/d46f991a45411db05e437fb61ed591d/eUnObgIVNjRTJtVUNQrbaQ__.jpg" alt="バグエゴの表紙" loading="lazy">
+    <div class="body">
+      <div class="title">バグエゴ</div>
+      <div class="author">ONE・設楽清人</div>
+      <div class="vols">9冊</div>
+      <div class="badges"><span class="badge badge-ku">読み放題対象</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <img src="https://rimg.bookwalker.jp/b0fd837690058890d448d199de5c09b/eUnObgIVNjRTJtVUNQrbaQ__.jpg" alt="そばギャルとおじさんの表紙" loading="lazy">
+    <div class="body">
+      <div class="title">そばギャルとおじさん</div>
+      <div class="author">稲葉そーへー・本橋隆司</div>
+      <div class="vols">4冊</div>
+      <div class="badges"><span class="badge badge-ku">読み放題対象</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <img src="https://rimg.bookwalker.jp/8526104/eUnObgIVNjRTJtVUNQrbaQ__.jpg" alt="GANTZ:Eの表紙" loading="lazy">
+    <div class="body">
+      <div class="title">GANTZ:E</div>
+      <div class="author">奥浩哉・花月仁</div>
+      <div class="vols">12冊</div>
+      <div class="badges"><span class="badge badge-ku">読み放題対象</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <img src="https://rimg.bookwalker.jp/7356541/eUnObgIVNjRTJtVUNQrbaQ__.jpg" alt="デスマーチからはじまる異世界狂想曲の表紙" loading="lazy">
+    <div class="body">
+      <div class="title">デスマーチからはじまる異世界狂想曲</div>
+      <div class="author">漫画版</div>
+      <div class="vols">21冊</div>
+      <div class="badges"><span class="badge badge-ku">読み放題対象</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <img src="https://rimg.bookwalker.jp/7866484/eUnObgIVNjRTJtVUNQrbaQ__.jpg" alt="ホテル・メッツァペウラへようこその表紙" loading="lazy">
+    <div class="body">
+      <div class="title">ホテル・メッツァペウラへようこそ</div>
+      <div class="author">―</div>
+      <div class="vols">9冊</div>
+      <div class="badges"><span class="badge badge-ku">読み放題対象</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <img src="https://rimg.bookwalker.jp/1e42317d60fabea0464f4acbeffe63c/eUnObgIVNjRTJtVUNQrbaQ__.jpg" alt="BLUE GIANT MOMENTUMの表紙" loading="lazy">
+    <div class="body">
+      <div class="title">BLUE GIANT MOMENTUM</div>
+      <div class="author">―</div>
+      <div class="vols">9冊</div>
+      <div class="badges"><span class="badge badge-ku">読み放題対象</span></div>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <p>確認日：2026年11月23日。読み放題の対象は入れ替わるため、このページの情報は確認日時点のものです。</p>
+  <p>対象の根拠：だいだい書店「Kindle Unlimitedで読めるおすすめ漫画20選」（2026年11月時点）、rich-book「Kindleマンガ人気ランキング」（2026-11-15更新）、すまほん／FlameLittのセール情報（2026年11月）。</p>
+  <p>Amazon.co.jpの商品ページはMuse側では開けなかったため（403）、Amazon上での最終確認は未実施です。</p>
+  <p>表紙画像：BOOK☆WALKER（rimg.bookwalker.jp）の画像を参照しています。</p>
+</footer>
+</div>
+</body>
+</html>
